@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     async getInfo () {
-      this.id = this.$store.getter.id
+      this.id = this.$store.getters.id
       const { data: res } = await this.$http.get('exam/sinfo', this.id)
       if (res.code !== 200) {
         return this.$message.error('获取考试资料失败！')

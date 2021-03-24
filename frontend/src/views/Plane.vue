@@ -17,7 +17,7 @@
           <el-button type="primary" @click="addDialogVisible = true">添加用户</el-button>
         </el-col>
       </el-row>
-      <el-table :data="userlist" border stripe>
+      <el-table :data="userlist" border stripe height="450">
         <el-table-column type="index" prop="p_id"></el-table-column>
         <el-table-column label="学院" prop="p_name"></el-table-column>
         <el-table-column label="专业" prop="p_mj_name"></el-table-column>

@@ -30,9 +30,9 @@
                 <td>
                   <span id="Span3">{{item.name}}</span>
                 </td>
-                <td style="height: 38px;" align="center">年龄</td>
+                <td style="height: 38px;" align="center">民族</td>
                 <td>
-                  <span id="Span3">{{item.age}}</span>
+                  <span id="Span3">{{item.nation}}</span>
                 </td>
 
               </tr>
@@ -44,7 +44,7 @@
                 </td>
                 <td style="width: 75px;" align="center">考试类型</td>
                 <td style="width: 45px;">
-                  <span id="Span2">{{item.examKind}}</span>
+                  <span id="Span2">笔试</span>
                 </td>
               </tr>
               <tr>
@@ -112,9 +112,9 @@ export default {
         examDate: '',
         photo: '',
         name: '',
-        age: '',
+        nation: '',
         sex: '',
-        examKind: '',
+        // examKind: '',
         className: '',
         placeName: '',
         placeAddress: '',
@@ -127,12 +127,24 @@ export default {
   },
   methods: {
     async getInfo () {
-      this.id = this.$store.getter.id
-      const { data: res } = await this.$http.get('exam/sinfo', this.id)
+      this.id = this.$store.getters.id
+      const { data: res } = await this.$http.get('exam/sinfo/' + this.id)
       if (res.code !== 200) {
         return this.$message.error('获取考试资料失败！')
       } else {
-        this.multipleArr = res.data
+        this.multipleArr = [{
+          admission: res.data[0].e_admission,
+          examDate: res.data[0].e_date,
+          // photo: res.data[0].e_photo,
+          name: res.data[0].e_name,
+          nation: res.data[0].e_nation,
+          sex: res.data[0].e_sex,
+          className: res.data[0].e_major,
+          placeName: res.data[0].e_place,
+          placeAddress: res.data[0].e_address,
+          cardNo: res.data[0].e_idno
+        }]
+        console.log(this.multipleArr)
       }
     },
     print () {

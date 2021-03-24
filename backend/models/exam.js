@@ -22,8 +22,8 @@ let examModel = sequelize.define(
             type: DataTypes.DATE,
             defaultValue: Date.parse(new Date()) / 1000
         },
-        e_age:{
-            type: DataTypes.INTEGER,
+        e_nation:{
+            type: DataTypes.STRING,
         },
         e_sex:{
             type: DataTypes.BOOLEAN,

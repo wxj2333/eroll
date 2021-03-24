@@ -2,7 +2,7 @@ const letter = require('../models/letter');
 
 module.exports = {
     addData: async (body, res) => {
-        await apply.create(body);
+        await letter.create(body);
         res.json({
             code: 200,
             data: null,
@@ -28,7 +28,7 @@ module.exports = {
             });
     },
     getSInfo: async (body, res) => {
-        await apply
+        await letter
             .findOne({
                 where: { l_s_id: body.id },
                 raw: true
@@ -50,7 +50,7 @@ module.exports = {
     },
 
     getInfo: async (body, res) => {
-        await apply
+        await letter
             .findOne({
                 where: { l_id: body.l_id },
                 raw: true
@@ -72,7 +72,7 @@ module.exports = {
     },
     updateData: async (body, res) => {
         body.updated_time = Date.parse(new Date()) / 1000;
-        await apply
+        await letter
             .update(body, {
                 where: { l_id: body.l_id }
             })
@@ -92,7 +92,7 @@ module.exports = {
             });
     },
     deleteData: async (body, res) => {
-        await apply
+        await letter
             .destroy({
                 where: { l_id: body.l_id }
             })

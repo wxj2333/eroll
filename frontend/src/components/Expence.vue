@@ -51,7 +51,7 @@ export default {
   },
   methods: {
     async check () {
-      this.id = this.$store.getter.id
+      this.id = this.$store.getters.id
       const { data: res } = await this.$http.get('exam/sinfo', this.id)
       if (res.code !== 200) {
         this.$message.error('添加用户失败！')

@@ -2,7 +2,16 @@ const teacher = require('../models/teacher');
 
 module.exports = {
     addData: async (body, res) => {
-        console.log(body)
+        const result = await teacher.findAll({
+            where: {t_telephone: body.t_telephone, t_password: body.t_password}
+        })
+        if( result.length!==0){
+            res.json({
+                code: 201,
+                data: null,
+                msg: 'failed'
+            });
+        }
         await teacher.create(body);
         res.json({
             code: 200,

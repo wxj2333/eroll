@@ -4,6 +4,18 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
 	addData: async (body, res) => {
+		console.log(body)
+		const result = await student.findAll({
+			where: {s_telephone: body.s_telephone, s_password: body.s_password}
+		})
+		console.log(result)
+		if( result.length!==0){
+			res.json({
+				code: 201,
+				data: null,
+				msg: 'failed'
+			});
+		}
 		await student.create(body);
 		res.json({
 			code: 200,
@@ -48,7 +60,7 @@ module.exports = {
 	//查看这里是否会出错！！！！！！！！
 	getList: async (body, res) => {
 		await student
-			.findOne({
+			.findAll({
 				where: { s_state: body.s_state },
 				// raw: true
 			})

@@ -151,4 +151,8 @@ export default {
   .el-main {
     background-color: #eaedf1;
   }
+  .el-button--primary {
+    color: #FFF;
+    background-color: rgb(104, 151, 180);
+  }
 </style>

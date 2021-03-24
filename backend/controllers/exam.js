@@ -3,7 +3,7 @@ const exam = require('../models/exam');
 module.exports = {
     addData: async (body, res) => {
         body.e_data = Date.parse(new Date()) / 1000;
-        await apply.create(body);
+        await exam.create(body);
         res.json({
             code: 200,
             data: null,
@@ -29,12 +29,13 @@ module.exports = {
             });
     },
     getSInfo: async (body, res) => {
-    await apply
-        .findOne({
+    await exam
+        .findAll({
             where: { e_s_id: body.id },
             raw: true
         })
         .then(result => {
+            console.log(result)
             res.json({
                 code: 200,
                 data: result,
@@ -50,7 +51,7 @@ module.exports = {
         });
     },
     getInfo: async (body, res) => {
-        await apply
+        await exam
             .findOne({
                 where: { e_id: body.e_id },
                 raw: true
@@ -72,7 +73,7 @@ module.exports = {
     },
     updateData: async (body, res) => {
         body.e_data = Date.parse(new Date()) / 1000;
-        await apply
+        await exam
             .update(body, {
                 where: { e_id: body.e_id }
             })
@@ -92,7 +93,7 @@ module.exports = {
             });
     },
     deleteData: async (body, res) => {
-        await apply
+        await exam
             .destroy({
                 where: { e_id: body.e_id }
             })

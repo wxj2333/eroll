@@ -4,10 +4,11 @@ import store from './store/index'
 import './plugins/element'
 import '../node_modules/element-ui/lib/theme-chalk/index.css'
 import router from './router'
+import './assets/css/global.css'
 import axios from 'axios'
-import vuex from 'vuex'
+// import Vuex from 'vuex'
 
-Vue.use(vuex)
+// Vue.use(Vuex)
 axios.defaults.baseURL = 'http://127.0.0.1:8888/'
 // 拦截请求(config)加入token头部
 axios.interceptors.request.use(config => {

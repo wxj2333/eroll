@@ -4,6 +4,7 @@ var router = express.Router();
 const {
 	addData,
 	getInfo,
+	// getId,
 	updateData,
 	deleteData,
 } = require('../controllers/student');
@@ -24,9 +25,9 @@ router.post('/add', function(req, res, next) {
 router.get('/info/:id', function(req, res, next) {
 	getInfo(req.params, res);
 });
-router.get('/getid/:telephone', function(req, res, next) {
-	getId(req.params, res);
-});
+// router.get('/getid/:telephone', function(req, res, next) {
+// 	getId(req.params, res);
+// });
 // 修改
 router.post('/update', function(req, res, next) {
 	updateData(req.body, res);

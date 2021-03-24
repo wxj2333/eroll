@@ -157,26 +157,22 @@ export default {
   },
   methods: {
     submitForm () {
+      const that = this
       this.$refs.loginFormRef.validate(async valid => {
         if (!valid) return false
-        const { data: res } = await this.$http.post('login', this.loginForm)
+        const { data: res } = await that.$http.post('login', this.loginForm)
         if (res.code !== 200) {
-          return this.$message.error('登陆失败')
+          return that.$message.error('登陆失败')
         } else {
-          if (this.loginForm.post === '0') {
-            this.$store.commit('setId', res.s_id)
+          that.$message.success('登陆成功')
+          if (that.loginForm.post === '0') {
+            that.$store.commit('setId', res.data[0].s_id)
+            window.sessionStorage.setItem('token', res.data[0].s_id)
+            this.$router.push('/Home')
+          } else {
+            window.sessionStorage.setItem('token', res.data[0].t_id)
+            this.$router.push('/Manage')
           }
-          this.$message.success('登陆成功')
-        }
-        // window.sessionStorage.setItem('token', res.data.token)
-        // console.log(this.loginForm.post)/
-        // debugger
-        if (this.loginForm.post === '0') {
-          debugger
-          this.$router.push('/Home')
-        } else {
-          debugger
-          this.$router.push('/Manage')
         }
       })
     },
@@ -185,12 +181,15 @@ export default {
     },
     async signin () {
       delete this.form.checkpass
-      if (this.form.post) {
+      if (this.form.post === '1') {
         const { data: res } = await this.$http.post('teacher/add', this.form)
         debugger
         if (res.code !== 200) {
           return this.$message.error('注册失败！')
+        } if (res.code === 201) {
+          return this.$message.error('该手机号已注册！')
         } else {
+          this.dialog = false
           return this.$message.success('注册成功，请登录！')
         }
       } else {
@@ -203,7 +202,10 @@ export default {
         const { data: res } = await this.$http.post('student/add', sForm)
         if (res.code !== 200) {
           return this.$message.error('注册失败！')
+        } if (res.code === 201) {
+          return this.$message.error('该手机号已注册！')
         } else {
+          this.dialog = false
           return this.$message.success('注册成功，请登录！')
         }
       }

@@ -16,7 +16,7 @@ export default {
     }
   },
   created () {
-    this.flage = this.$store.getter.state
+    this.flage = this.$store.getters.state
   },
   methods: {
     countDown () {

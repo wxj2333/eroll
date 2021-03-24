@@ -1,7 +1,7 @@
 <template>
   <el-tabs :tab-position="tabPosition" style="height: 200px;">
     <el-tab-pane label="招生信息">
-      <el-table :data="userlist" border stripe>
+      <el-table :data="userlist" border stripe height="250">
         <el-table-column type="index" prop="p_id"></el-table-column>
         <el-table-column label="学院" prop="p_name"></el-table-column>
         <el-table-column label="专业" prop="p_mj_name"></el-table-column>
@@ -35,7 +35,6 @@ export default {
         return this.$message.error('获取用户列表失败！')
       }
       this.userlist = res.data
-    // this.total = res.data.total
     }
   }
 

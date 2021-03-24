@@ -1,6 +1,6 @@
 <template>
   <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-    <el-form-item label="考生姓名" prop="s_name">
+    <el-form-item label="考生姓名" prop="s_name" style="width: 60%;">
       <el-input v-model="ruleForm.s_name"></el-input>
     </el-form-item>
     <el-form-item label="性别" prop="s_sex">
@@ -9,19 +9,19 @@
         <el-option label="女" value="0"></el-option>
       </el-select>
     </el-form-item>
-    <el-form-item label="民族" prop="s_nation">
-      <el-input type="textarea" v-model="ruleForm.s_nation"></el-input>
+    <el-form-item label="民族" prop="s_nation" style="width: 60%;">
+      <el-input v-model="ruleForm.s_nation"></el-input>
     </el-form-item>
-    <el-form-item label="身份证号码" prop="s_idno">
-      <el-input type="textarea" v-model="ruleForm.s_idno"></el-input>
+    <el-form-item label="身份证号码" prop="s_idno" style="width: 60%;">
+      <el-input v-model="ruleForm.s_idno"></el-input>
     </el-form-item>
-    <el-form-item label="报考专业" prop="s_major">
-      <el-input type="textarea" v-model="ruleForm.s_major"></el-input>
+    <el-form-item label="报考专业" prop="s_major" style="width: 60%;">
+      <el-input v-model="ruleForm.s_major"></el-input>
     </el-form-item>
-    <el-form-item label="联系方式" prop="s_telephone">
-      <el-input type="textarea" v-model="ruleForm.s_telephone"></el-input>
+    <el-form-item label="联系方式" prop="s_telephone" style="width: 60%;">
+      <el-input v-model="ruleForm.s_telephone"></el-input>
     </el-form-item>
-    <el-form-item label="家庭住址" prop="s_address">
+    <el-form-item label="家庭住址" prop="s_address" style="width: 60%;">
       <el-input type="textarea" v-model="ruleForm.s_address"></el-input>
     </el-form-item>
     <el-form-item>
@@ -36,13 +36,16 @@ export default {
   name: 'Write',
   data () {
     return {
+      id: '',
       ruleForm: {
+        s_id: 0,
         s_name: '',
         s_sex: '',
         s_nation: '',
         s_idno: '',
         s_major: '',
-        s_address: ''
+        s_address: '',
+        s_state: 0
       },
       rules: {
         s_name: [
@@ -67,25 +70,32 @@ export default {
       }
     };
   },
+  created () {
+    debugger
+    if (Number(this.$store.getters.id) === 0) {
+      debugger
+      this.$router.push('/Login')
+    }
+    this.ruleForm.s_id = this.$store.getters.id
+    debugger
+  },
   methods: {
     submitForm (formName) {
       this.$refs[formName].validate(async valid => {
         if (valid) {
-          const { data: res } = await this.$http.post('student/getid/', formName.s_telephone)
-          if (res.code !== 200) {
-            return this.$message.error('失败')
-          } else {
-            formName.s_id = res.s_id
-            const { data: ret } = await this.$http.post(
-              'plane/update',
-              formName
-            )
-            if (ret.code !== 200) {
-              this.$message.error('修改用户失败！')
-            }
-            this.$store.commit('setState', 2)
-            this.$message.success('报名成功')
+          debugger
+          formName.s_state = 1
+          debugger
+          const { data: ret } = await this.$http.post(
+            'student/update',
+            formName
+          )
+          debugger
+          if (ret.code !== 200) {
+            this.$message.error('修改用户失败！')
           }
+          this.$store.commit('setState', 2)
+          this.$message.success('报名成功')
         }
       });
     },
@@ -97,5 +107,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

@@ -1,8 +1,13 @@
 <template>
 <div>
-    <el-carousel :interval="4000" type="card" height="200px">
-      <el-carousel-item v-for="item in 6" :key="item">
-        <h3 class="medium">{{ item }}</h3>
+    <el-carousel :interval="4000" type="card" height="300px">
+      <el-carousel-item v-for="item in imgList" :key="item" height="300px" >
+        <h3><img :src="item.url" alt="" :fit="contain"> </h3>
+<!--      <el-carousel-item v-for="(img,index) in imgList" :key="index">-->
+<!--        <el-image-->
+<!--          style="width: 600px; height: 300px"-->
+<!--          :src="url"-->
+<!--          :fit="fill"></el-image>-->
       </el-carousel-item>
     </el-carousel>
 
@@ -11,7 +16,18 @@
 
 <script>
 export default {
-  name: 'Introduce'
+  name: 'Introduce',
+  data () {
+    return {
+      imgList: [
+        { url: require('../assets/image/intro1.jpg') },
+        { url: require('../assets/image/intro2.jpg') },
+        { url: require('../assets/image/intro3.jpg') },
+        { url: require('../assets/image/intro4.jpg') },
+        { url: require('../assets/image/intro5.jpg') }
+      ]
+    }
+  }
 }
 </script>
 
@@ -22,6 +38,9 @@ export default {
     opacity: 0.75;
     line-height: 200px;
     margin: 0;
+    img{
+      size: 100% 100%;
+    }
   }
 
   .el-carousel__item:nth-child(2n) {

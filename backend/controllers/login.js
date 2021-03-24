@@ -4,55 +4,45 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
     login: async (body, res) => {
-        console.log(body)
-        if (body.post){
-            debugger
-            await teacher.findOne({
+        if (body.post==='1'){
+            console.log(1)
+            const result = await teacher.findAll({
                 where: {t_telephone: body.username, t_password: body.password}
             })
-                .then(result => {
-                    // let content = {telephone: body.username};
-                    // let token = jwt.sign(content, 'jares', {
-                    //     expiresIn: 60 * 60 * 1
-                    // });
+                    if( result.length===0){
+                        res.json({
+                            code: 404,
+                            data: null,
+                            msg: 'failed'
+                        });
+                    }
+        else{
                     res.json({
                         code: 200,
                         data: result,
                         msg: 'success'
                     });
-                })
-                .catch(err=>
-                {
-                    res.json({
-                        code: 404,
-                        data: null,
-                        msg: err
-                    });
-                });
+                    }
         }
         else{
-            await student.findOne({
+            console.log(2)
+            const result = await student.findAll({
                 where: {s_telephone: body.username, s_password: body.password}
             })
-                .then(result => {
-                    // let content = {telephone: body.username};
-                    // let token = jwt.sign(content, 'jares', {
-                    //     expiresIn: 60 * 60 * 1
-                    // });
-                    res.json({
-                        code: 200,
-                        data: result,
-                        msg: 'success'
-                    });
-                })
-                .catch(err=>
-                {
-                    res.json({
-                        code: 404,
-                        data: null,
-                        msg: err
-                    });
+            if( result.length===0){
+                res.json({
+                    code: 404,
+                    data: null,
+                    msg: 'failed'
                 });
+            }
+            else{
+                res.json({
+                    code: 200,
+                    data: result,
+                    msg: 'success'
+                });
+            }
         }
 
 

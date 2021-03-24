@@ -46,11 +46,9 @@ module.exports = {
     //         });
     // },
     getList: async (body, res) => {
-        console.log(body)
         await plane
             .findAll()
             .then(result => {
-                console.log(res)
                 res.json({
                     code: 200,
                     data: result,

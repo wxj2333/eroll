@@ -24,8 +24,8 @@
         <Check v-if="active===2"></Check>
         <Expence v-if="active===3"></Expence>
         <Printf v-if="active===4"></Printf>
-        <Result v-if="active===5"></Result>
-        <Book v-if="active===6"></Book>
+<!--        <Result v-if="active===5"></Result>-->
+<!--        <Book v-if="active===6"></Book>-->
     </el-card>
     <el-button style="margin-top: 12px;" @click="next">下一步</el-button>
     <el-button style="margin-top: 12px;" @click="front">上一步</el-button>
@@ -38,7 +38,7 @@ import Printf from './Printf';
 import Check from './Check';
 import Expence from './Expence';
 import Inform from './Inform';
-import Result from './Result';
+// import Result from './Result';
 import Book from './Book';
 import Write from './Write';
 
@@ -56,7 +56,7 @@ export default {
     Expence: Expence,
     Check: Check,
     Printf: Printf,
-    Result: Result,
+    // Result: Result,
     Book: Book
   },
   methods: {
@@ -67,8 +67,8 @@ export default {
       this.active--
     },
     async getInfo () {
-      this.id = this.$store.getter.id
-      this.active = this.$store.getter.state
+      this.id = this.$store.getters.id
+      this.active = this.$store.getters.state
     }
   },
   created () {

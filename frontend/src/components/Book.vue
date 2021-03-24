@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     async getInfo () {
-      this.id = this.$store.getter.id
+      this.id = this.$store.getters.id
       const { data: res } = await this.$http.post('student/info' + this.id)
       if (res.code !== 200) {
         return this.$message.error('获取用户失败')
